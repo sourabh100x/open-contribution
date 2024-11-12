@@ -86,12 +86,13 @@ const ContributionForm: React.FC = () => {
     <span className="font-bold">custom</span>
       </div>
         
-      <div className="my-5 min-h-[250px] transition-all duration-300">
+      <div className=" min-h-[250px] transition-all duration-300">
   {enabled ? (
     <Textarea
+    cols={10}
       value={customPrompt}
       onChange={(e) => setCustomPrompt(e.target.value)}
-      className="my-5 w-full p-2 rounded bg-gray-200 text-gray-900"
+      className="my-5 h-40 w-full p-2 rounded bg-gray-200 text-gray-900"
       placeholder="Type your message here."
     />
   ) : (
@@ -160,26 +161,35 @@ const ContributionForm: React.FC = () => {
       </p>
     </div>
   )}
-</div>
-     
-
-      <button
+   <button
       disabled={loading}
         onClick={handleSubmit}
         className="bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 transition duration-200 w-auto mx-auto"
       >
         {loading ? 'Loading...' :"search project"}
       </button>
+</div>
+     
+
+     
 
       
     </div>
-    <div className="grid grid-cols-3 my-10 gap-2">
-    {
-         projects  && projects.length > 0 && 
-        projects.map((project) => <ProjectCard project={project} />)
-      }
+    <div className="my-10">
+  {projects && projects.length > 0 ? (
+    <>
+      <p className="text-gray-100 font-3xl font-bold mb-4">Found {projects.length} result{projects.length > 1 ? 's' : ''}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        {projects.map((project,index) => (
+          <ProjectCard key={index} project={project} />
+        ))}
+      </div>
+    </>
+  ) : (
+    <p className="text-gray-100 font-3xl font-bold mb-4">No results found. Try adjusting your search query.</p>
+  )}
+</div>
 
-    </div>
     </>
 
   );
